@@ -151,7 +151,8 @@ def create_driver(obj, driver_value):
             target = targets[j]
             target_value_0 = targets_value[j]
 
-            target.id_type = target_value_0.id_type
+            if target.id_type != target_value_0.id_type:
+                target.id_type = target_value_0.id_type
             target.id = target_value_0.id
             target.bone_target = target_value_0.bone_target
             target.context_property = target_value_0.context_property
@@ -181,6 +182,9 @@ def main(obj):
 
     # create a copy for each blendshape and transfer it to the receiver one after the other
     # start the loop at 1 so we skip the base shapekey
+    # 开始进度条，总步数为100
+    bpy.context.window_manager.progress_begin(0, num_shapes)
+
     for i in range(1, num_shapes):
         # copy of baseobject / blendshape donor
         blendshape = copy_object(obj, times=1, offset=0)[0]
@@ -198,6 +202,9 @@ def main(obj):
         bpy.data.objects.remove(blendshape)
         bpy.data.meshes.remove(mesh_data)
 
+        bpy.context.window_manager.progress_update(i)
+
+
     # delete the original and its mesh data
     orig_name = obj.name
     orig_data = obj.data
@@ -210,6 +217,8 @@ def main(obj):
     for driver_data in drivers_data:
         create_driver(receiver, driver_data)
 
+    # 结束进度条
+    bpy.context.window_manager.progress_end()
     return receiver
 
 class SKD_apply_mods_without_armature(Operator):
