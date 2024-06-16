@@ -1,5 +1,5 @@
 # ShapeKeysDriverKeeper
- applied the modifiers while keeping the shapekeys and the drivers
+ apply the modifiers while keeping the shapekeys and the drivers
 
  for Blender 4.10
 
@@ -8,7 +8,7 @@
 2. Select the object with the shapekeys 
 3. Open the Object Menu in the 3DView
 4. Select the operator "Apply All Visible Modifiers (Keep Shapekeys)" or without armature version
-5. You successfully
+5. Done
 
 ## Attention
 - The addon will only apply the modifiers that are visible in the viewport
